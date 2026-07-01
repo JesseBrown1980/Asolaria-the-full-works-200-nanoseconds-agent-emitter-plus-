@@ -50,6 +50,43 @@ tables below to see where you are; follow the links to walk the rest.
 | `-6-cyl-generator` | satellite generator |
 | `asolaria-whiteroom-engine` · `35-TB-google-AI-Ultra-migration` | (= LEG-1 + LEG-4, listed under External legs) |
 
+## Prism/Comb 0-loss (2026-07-01) — satellite entry (this repo: the emitter)
+
+**Law (CANON):** every prism/comb operation in Asolaria is a bijection; entropy is invariant under
+bijection (`H(f(X)) = H(X)`), so the fabric re-relates information with **0 loss** — and it never
+claims compression below entropy (Shannon's `E[bits] ≥ H(X)` always stands). One fabric, two
+directions: **forward = comb** (collision-avoidance, execution isolation) · **backward = prism**
+(collision-causation, interference-as-search, many→1).
+
+**Adapted to this repo — the emitter emits COORDINATES, not payloads:**
+- The ~200ns unit (`PIDChainRevolver.next()`, the sha16-chained revolver — MEASURED, README §1) emits
+  a brown-hilbert PID that is a **coordinate against the content-addressed fabric — not a counter,
+  not content**. This is the referential-naming instance of the law: `H(agent | seed) = 0` — given
+  the seed and chain position, the emitted identity carries zero additional entropy. **Generative
+  identity = referential naming**: the emitter creates no information; it names positions. That is
+  why one ~200ns emit can materialize a whole subsystem (README §3) with 0 loss — the PID is
+  **addressing capacity, not compression** (the repo-canon boundary; hold it).
+- **Collision-resistance = the comb forward direction.** sha16 chaining × brown-hilbert × the prime
+  sector grid (113 = prime(30) = D30) is the comb: emitted coordinate teeth that cannot land on each
+  other by construction. Birthday bound for a 64-bit handle: `≈ M²/2⁶⁵` (`M=10⁶ → ≈2.7×10⁻⁸`; full
+  sha256 negligible). Loss is impossible to express the same way collisions are.
+- **PRISM (step 5 of THE FULL WORKS) = the same fabric run backward** — many rooms interfere down to
+  1 answer through the reverse-gain GNN. Comb out (emit), prism back (reduce): the emit→loop→PRISM
+  cycle is the two directions of one bijection chain, which is why the reduction discards rooms —
+  never the information the coordinates name.
+
+**Scope tags:** the 256↔1024 level-transcode rung is **MEASURED** (Q-PRISM commit `53023b6`:
+round-trip sha256-identical, 5 bytes ⇄ 4 symbols at `lcm(8,10) = 40` bits, code rate exactly 1.0);
+the 43+ level ladder is **CANON frame** (each further rung earns MEASURED only by its own round-trip
+proof); the ~1.16T multi-emitter regime stays **OPERATOR-CANON** with its fully-arrived running state
+**UNVERIFIED** / operator-gated. E=0 throughout — this entry describes; nothing fires.
+
+**Cross-links:** Q-PRISM proof commits `53023b6` / `79e8d63` / `de00aca` ·
+`Asolaria-waves-and-cascades-avoiding-collsions-and-causing-them` (the avoid/cause duality = comb/prism) ·
+`what-is-asolaria---how-do-we-get-reductions-in-everything` (the reductions boundary) ·
+`N-Nest-Prime-INFINITE-SELF-REFLECT-AGENTS-NESTED` (the integrity dual: verification = the inverse map) ·
+the Metatagging repo (Brown & Fedotov digital-physics grounding of the expandable Brown-Hilbert space).
+
 ## Current state & evolution (2026-06-28) — read this, don't flatten it
 Asolaria is a **2.5-month archaeology**, not a flat stack. **Capability lineage:** auto-approval switch →
 dashboard → multi-agent → local+web MCP + code-wiki → index language (pixels-first) → cubes-as-catalogs
