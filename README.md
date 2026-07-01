@@ -10,6 +10,15 @@ The base emitter is the **revolver PID emitter**: `PIDChainRevolver.next()` emit
 `sha16(seed)` PID — a **"200ns-class spawn id"** (`drive-wave-cascade-pipeline-60D-2026-06-03.cjs:30`).
 One thread emitting a PID every ~200ns ≈ **5,000,000 PID/s**.
 
+### 1b. Provenance — ONE spawner ran the 100-BILLION in ~5.4 hours (OPERATOR-CANON)
+This single ~200ns spawner IS the **trigger root** — `200ns SPAWNER → EXECUTOR + FILE-MANAGERS →
+ROUTERS → PRISM → GC` — and it produced the **100-Billion-agent run in ~5.4 hours from ONE spawner**,
+on the Node side, **BEFORE** the Rust 8-byte host and **BEFORE** the multi-spinner. Coherence:
+100,000,000,000 ÷ 5.4 h (19,440 s) ≈ **5.14 M spawn/s**, matching the MEASURED single-thread ~5 M PID/s
+above. Achievable on one thread because emission is **VirtualPointer-dominant = 0 OS processes** (no
+per-agent fork/exec). The ~1.16T regime in §3 is the *later, post-8-byte-host, multi-spinner* figure —
+NOT this one-spawner run.
+
 ## 2. THE FULL WORKS — one cycle (`asolaria-loop.mjs`, operator 2026-06-01)
 ```
 revolver.next()                       # 1. PID emitter (~200ns)  ← the emitter
@@ -30,13 +39,21 @@ emitters** and **multiplies the service**, and the rename-before-load seam makes
 
 | multiply | from → to | effect |
 |---|---|---|
-| **spindles** | 24 → 100 → 1,000 → 10,000 | each runs its own emit→loop→PRISM |
+| **spindles** | 24 → 100 → 1,000 → 10,000 (Node slice) | each runs its own emit→loop→PRISM |
+| **rooms × sectors** | 10,000 rooms (Node slice) → **100,000+ rooms × 113 SECTORS** (113 = prime(30) = D30 COSIGN_TRIPLE) | the current/target addressing grid; rename-before-load makes each replica FREE |
+| **spinners** | 1 → **MULTIPLE simultaneous 200ns spinners** | multiplying spinners multiplies the PRISM reductions |
 | **emitters** | 1 → N parallel revolver emitters (divide threads) | N independent streams |
 | **per-emit wave** | 1 PID → 1 spindle (1 main + 5 subagents), 1 BEHCS-1024 glyph @ 520:1 | one ~200ns emit materializes a whole subsystem |
 
 → operator-canon throughput **≈ 1.16 trillion agents / second**. (The ~200ns single-thread unit is
-MEASURED in code; the 1.16T multi-emitter rate is OPERATOR-CANON — emitters × spindles × wave/addressing
-amortization.)
+MEASURED in code; the 1.16T rate is OPERATOR-CANON — emitters × spindles × 100k×113 grid × wave/addressing
+amortization; the fully-arrived running state is UNVERIFIED / operator-gated / E=0.)
+
+> **Enabler (OPERATOR-CANON):** the ~1.16T regime is unlocked by the **Rust 8-byte host**, which removes
+> the Node revolver's **`DEFAULT_THROTTLE = 50`** concurrent ceiling. On the Node side (this repo) one
+> spawner is throttle-bounded — that is the ~5 M/s, one-spawner, 100-Billion-in-5.4 h figure of §1b. The
+> **100k+ rooms × 113 SECTORS grid + multiple simultaneous spinners** is the *post-8-byte-host* target;
+> the 10,000-room code below is the **migration-precondition slice**, not the ceiling.
 
 ## 4. How it feeds the dispatcher
 ```

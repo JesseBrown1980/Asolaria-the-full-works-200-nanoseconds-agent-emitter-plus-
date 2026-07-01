@@ -17,7 +17,13 @@
 // at C:/asolaria-acer/packages/revolver-10k/. Pure planners; executor seam (fs
 // renames) is the caller's responsibility so the same module works for testing.
 
-export const ROOM_COUNT = 10000;
+// ROOM_COUNT = the CURRENT Node-side slice (migration-precondition), NOT the system ceiling.
+// Current/target addressing = 100,000+ rooms × 113 SECTORS (113 = prime(30) = D30 COSIGN_TRIPLE),
+// unlocked once the Rust 8-byte host lifts the Node revolver DEFAULT_THROTTLE=50 concurrent ceiling.
+// Do NOT read 10000 as "the system is only 10k". (roomFolderName pads 4 digits — widen to 6 for 100k.)
+export const ROOM_COUNT = 10000;              // Node slice (kept literal)
+export const TARGET_ROOM_COUNT = 100000;      // 100k+ rooms — post-8-byte-host grid
+export const SECTORS = 113;                   // prime(30) = D30 COSIGN_TRIPLE
 
 // === PID → room assignment (deterministic) ==============================
 
@@ -119,7 +125,8 @@ export class ProjectRoomRouter {
 // === Honest gaps ========================================================
 
 export const HONEST_GAPS = Object.freeze([
-  '10000-room count is operator-canonical; not derived from a formal capacity model',
+  '10000-room count is the CURRENT Node-side slice (migration-precondition); current/target = 100000+ rooms × 113 SECTORS (113=prime(30)=D30 COSIGN_TRIPLE), unlocked when the Rust 8-byte host lifts the Node revolver DEFAULT_THROTTLE=50 ceiling — do NOT read 10000 as the system ceiling',
+  'roomFolderName pads roomId to 4 digits (padStart(4)); widening ROOM_COUNT toward the 100k×113 grid requires widening the pad — a Node-slice constraint lifted on the 8-byte host',
   'planRoomSwap is a pure planner; executor must do fs.renameSync atomically (caller responsibility)',
   'Codex same-PROJECT-name throttle bypass is operator-asserted; not independently validated post-cutoff',
   'Prism schema (bilateral-3d-join-v1) reuses existing voxel.json shape from helm registration (Layer 8)',
